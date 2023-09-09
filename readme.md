@@ -18,3 +18,6 @@
 
 "db": "prisma db push",
 "client": "prisma generate"
+
+
+

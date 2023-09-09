@@ -8,25 +8,25 @@ import express from 'express'
 const server = express();
 server.use(express.json());
 
-server.use('/test', (req, res) => {
-    return res.send("OK nhe1!")
-})
+// import MailServer, { templates } from './services/mail'
 
-/* Setup TypeORMS */
-// import { myDataSource } from './typeoms/app-data-source'
+// server.use("/test", async (req, res) => {
+//     console.log("req.headers.language", req.headers.language);
 
-// try {
-//     myDataSource
-//         .initialize()
-//         .then(() => {
-//             console.log("TypeORMS thành công!")
+//     let resuslt = await MailServer.sendMail({
+//         to: "tranduytuananh203@gmail.com",
+//         subject: "Thử Template",
+//         html: templates.emailConfirm({
+//             productName: 'Shoe Store',
+//             productWebUrl: 'https://www.nike.com/',
+//             receiverName: 'Người Dùng Mới',
+//             confirmLink: 'abc.xyz',
+//             language: String(req.headers.language)
 //         })
-//         .catch((err) => {
-//             console.error("TypeORMS thất bại!")
-//         })
-// } catch (err) {
-//     console.log("Lỗi cú pháp!")
-// }
+//     })
+
+//     console.log("resuslt", resuslt)
+// })
 
 /* Config Cors */
 import cors from 'cors'
@@ -41,12 +41,19 @@ server.use("/authen-google", async (req, res) => {
         idToken: req.body.token
     })
     console.log("result", result);
-    
+
 })
 
+
+
+import routeApi from './apis'
+import guard from './middlewares/guard';
+server.use('/apis', guard.ipAuthen, routeApi)
+
+
 /* Version api setup */
-import apiConfig from './apis'
-server.use('/apis', apiConfig)
+// import apiConfig from './apis'
+// server.use('/apis', apiConfig)
 
 
 /* Đẩy server ra port trên mấy */
