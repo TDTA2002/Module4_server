@@ -27,4 +27,7 @@ router.use('/purchase', purchaseApi)
 import connectionApi from './modules/connection'
 router.use('/connection', connectionApi)
 
+import userchaseApi from './modules/userpurchase'
+router.use('/userpurchase', userchaseApi)
+
 export default router;

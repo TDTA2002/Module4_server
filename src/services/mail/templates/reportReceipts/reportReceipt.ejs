@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill</title>
+    <style>
+        table,
+        tr,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Cảm ơn <%= receiptObj.userId %>
+    </h2>
+    <h1>Bạn vừa mua hàng lúc: <%= receiptObj.createAt %>
+    </h1>
+    <!-- <table>
+        <tr>
+            <th>STT</th>
+            <th>Product Name</th>
+            <th>Amount</th>
+            <th>Price</th>
+            <th>Total</th>
+        </tr>
+        <% receiptObj.guestReceiptDetail.forEach(function(item, index){ %>
+            <tr>
+                <td>
+                    <%= index + 1 %>
+                </td>
+                <td>
+                    <%= item.product.name %>
+                </td>
+                <td>
+                    <%= item.quantity %>
+                </td>
+                <td>
+                    <%= item.product.price %>
+                </td>
+                <td>
+                    <%= item.quantity * item.product.price %>
+                </td>
+            </tr>
+            <% }); %>
+                <tr>
+                    <td></td>
+                    <td>Tổng Tiền</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <%= receiptObj.total %>
+                    </td>
+                </tr>
+    </table> -->
+    <a href="http://localhost:5173/receipt">Bạn có thể theo dõi trạng thái đơn hàng tại đây</a>
+</body>
+
+</html>

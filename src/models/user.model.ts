@@ -157,7 +157,7 @@ export default {
     findMany: async function () {
         try {
             let user = await prisma.users.findMany();
-
+            
             return {
                 status: true,
                 message: "Get categories ok!",

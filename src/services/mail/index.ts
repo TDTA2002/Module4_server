@@ -8,10 +8,14 @@ export interface MailOption {
 }
 import emailConfirm from './templates/emailConfirm'
 import sendOtp from './templates/sendOtp'
+import reportReceiptTemplate from './templates/reportReceipts'
+import userreportReceiptTemplate from './templates/userReceiptDetil'
 
 export const templates = {
     emailConfirm,
-    sendOtp
+    sendOtp,
+    reportReceiptTemplate,
+    userreportReceiptTemplate
 }
 export default {
     sendMail: async (mailOption: MailOption) => {
