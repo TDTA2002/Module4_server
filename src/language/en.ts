@@ -12,6 +12,11 @@ const data = {
     userNameDuplicate: "Username already exists",
     emailDuplicate: "Email already exists",
     registerSuccess: "Register Successfully",
+
+    error001: "Account is temporarily locked",
+    error002: "Incorrect password",
+    error003: "User does not exist",
+    success001: "Login successfully",
     /* Middleware */
     ipAcceptDenine: "IP Address Not Accept",
 

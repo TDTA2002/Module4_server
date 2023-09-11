@@ -15,10 +15,13 @@ const data: TextType = {
     emailDuplicate: "Email đã tồn tại",
     registerSuccess: "Đăng ký thành công",
     ipAcceptDenine: "Địa chỉ IP không được chấp nhận",
+    updateSuccess: "Update thành công",
 
-    updateSuccess: "Update thành công"
-
-
+    /* Login Api */
+    error001: "Tài khoản đang bị tạm khoá",
+    error002: "Mật khẩu không chính xác",
+    error003: "Người dùng không tồn tại",
+    success001: "Đăng nhập thành công",
 }
 
 export default data

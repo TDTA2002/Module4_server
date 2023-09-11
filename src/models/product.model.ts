@@ -29,7 +29,7 @@ export default {
             console.log("lỗi model", err)
             return {
                 status: false,
-                message: "Lỗi model",
+                message: "Lỗi model1",
                 data: null
             }
         }
@@ -95,7 +95,7 @@ export default {
         } catch (err) {
             return {
                 status: false,
-                message: "Lỗi model",
+                message: "Lỗi model3",
                 data: null
             }
         }
@@ -114,7 +114,7 @@ export default {
             }
         } catch (err) {
             console.log("conlorr", err);
-            
+
             return {
                 status: false,
                 message: "modelErr",
@@ -122,4 +122,69 @@ export default {
             }
         }
     },
+    findProductByName: async function (nameString: any) {
+        console.log("name string", String(nameString));
+
+        try {
+            const result = await prisma.products.findMany({
+                where: {
+                    name: {
+
+                        contains: nameString,
+                    }
+                },
+                include: {
+                    productPictures: true
+                }
+            })
+            console.log("result", result);
+
+            return {
+                status: true,
+                message: "findProductByName successfull ! ",
+                data: result
+            }
+
+        } catch (err) {
+            return {
+                status: false,
+                message: "search product that bai "
+            }
+        }
+    },
+    updateProduct: async function (productId: string, updatedData: any) {
+        try {
+            const updatedProduct = await prisma.products.update({
+                where: {
+                    id: productId
+                },
+                data: {
+                    ...updatedData,
+                },
+
+            });
+
+            if (updatedProduct) {
+                return {
+                    status: true,
+                    message: "Cập nhật sản phẩm thành công!",
+                    data: updatedProduct
+                };
+            } else {
+                return {
+                    status: false,
+                    message: "Không tìm thấy sản phẩm để cập nhật.",
+                    data: null
+                };
+            }
+        } catch (err) {
+            console.error("Lỗi model:", err);
+            return {
+                status: false,
+                message: "Cập nhật sản phẩm thất bại.",
+                data: null
+            };
+        }
+    }
+
 }

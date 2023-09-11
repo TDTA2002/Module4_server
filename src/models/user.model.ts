@@ -144,8 +144,8 @@ export default {
                 message: "Lấy thông tin thành công!"
             }
         } catch (err) {
-         
-            
+
+
             let message: string = "modelErr";
             return {
                 status: false,
@@ -153,5 +153,42 @@ export default {
                 message
             }
         }
-    }
+    },
+    findMany: async function () {
+        try {
+            let user = await prisma.users.findMany();
+
+            return {
+                status: true,
+                message: "Get categories ok!",
+                data: user
+            }
+
+        } catch (err) {
+            return {
+                status: false,
+                message: "Lỗi model2",
+                data: null
+            }
+        }
+    },
+    // updateUserStatus: async function (userId: string, newStatus: boolean) {
+    //     try {
+    //         const updatedUser = await prisma.users.update({
+    //             where: {
+    //                 id: userId,
+    //             },
+    //             data: {
+    //                 isActive: newStatus,
+    //             },
+    //         });
+    //         return updatedUser;
+    //     } catch (error) {
+    //         return {
+    //             status: false,
+    //             message: "Lỗi model2",
+    //             data: null
+    //         }
+    //     }
+    // }
 }

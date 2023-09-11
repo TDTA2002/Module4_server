@@ -23,7 +23,7 @@ export default {
         } catch (err) {
             return {
                 status: false,
-                message: "Lỗi model",
+                message: "Lỗi model2",
                 data: null
             }
         }

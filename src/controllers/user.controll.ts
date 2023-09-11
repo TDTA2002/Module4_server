@@ -25,8 +25,8 @@ export default {
                     html: templates.emailConfirm({
                         confirmLink: `${process.env.SERVER_URL}auth/email-confirm/${jwt.createToken(modelRes.data, "300000")}`,
                         language: String(req.headers.language),
-                        productName: "Miêu Store",
-                        productWebUrl: "abc.com",
+                        productName: "Shoe Store",
+                        productWebUrl: 'http://localhost:5173/',
                         receiverName: modelRes.data?.firstName + '' + modelRes.data?.lastName
                     })
                 })
@@ -47,22 +47,22 @@ export default {
             if (modelRes.status) {
                 if (!modelRes.data?.isActive) {
                     return res.status(213).json({
-                        message: "Người dùng đang bị tạm khóa"
+                        message: (Text(String(req.headers.language)) as any).error001
                     });
                 }
                 let checkPassword = await bcrypt.compare(req.body.password, modelRes.data.password);
                 if (!checkPassword) {
                     return res.status(213).json({
-                        message: "Mật khẩu không chính xác"
+                        message: (Text(String(req.headers.language)) as any).error002
                     });
                 }
                 return res.status(200).json({
-                    message: "Đăng nhập thành công",
+                    message: (Text(String(req.headers.language)) as any).success001,
                     token: jwt.createToken(modelRes.data, "1d")
                 });
             }
             return res.status(modelRes.status ? 200 : 213).json({
-                message: "Người dùng không tồn tại!"
+                message: (Text(String(req.headers.language)) as any).error003
             });
         } catch (err) {
             return res.status(500).json({
@@ -70,4 +70,26 @@ export default {
             })
         }
     },
+    findUser: async function (req: Request, res: Response) {
+        try {
+            let modelRes = await userModel.findMany();
+            return res.status(modelRes.status ? 200 : 213).json(modelRes);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Lỗi controller"
+            })
+        }
+    },
+    // updateUserStatus: async function (userId: string, newStatus: boolean): Promise<void> {
+    //     try {
+    //         const updatedUser = await userModel.updateUserStatus(userId, newStatus);
+    //         if (updatedUser !== null) {
+    //             console.log('Thông tin người dùng sau khi cập nhật:', updatedUser);
+    //         } else {
+    //             console.log('Không tìm thấy người dùng hoặc không cập nhật.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Lỗi:', error);
+    //     }
+    // }
 }

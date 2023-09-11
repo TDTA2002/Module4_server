@@ -82,5 +82,56 @@ export default {
                 data: null
             }
         }
-    }
+    },
+    findManyGuestReceipts: async function (maxItemPage: number, skipItem: number) {
+        try {
+            let orders = await prisma.guestReceipts.findMany({
+                skip: skipItem,
+                take: maxItemPage,
+                include: {
+                    guestReceiptDetail: true
+                }
+            });
+            let countItem = (await prisma.guestReceipts.findMany()).length;
+            let maxPage = Math.ceil(countItem / maxItemPage);
+            return {
+                status: true,
+                message: "Lấy danh sách hoá đơn thành công",
+                maxPage,
+                data: orders,
+            }
+        } catch (err) {
+            console.log("err", err);
+
+            return {
+                status: false,
+                message: "modelErr",
+            }
+        }
+    },
+    findById: async function (orderId: string) {
+        try {
+            let order = await prisma.guestReceipts.findUnique({
+                where: {
+                    id: orderId
+                },
+                include: {
+                    guestReceiptDetail: true
+                }
+            })
+            return {
+                status: true,
+                message: "get Guest Receipt by Id successfully",
+                data: order
+            }
+        } catch (err) {
+            console.log("err", err);
+            
+            return {
+                status: false,
+                message: "modelErr",
+                data: null
+            }
+        }
+    },
 }

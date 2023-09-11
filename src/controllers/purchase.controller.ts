@@ -21,20 +21,17 @@ export default {
         try {
             let modelRes = await purchaseModel.findGuestReceipt(String(req.body.guestEmail));
             if (req.body.otp) {
-                /* có otp */
                 let result = otps.checkOtp(String(req.body.guestEmail), String(req.body.otp))
                 if (result) {
                     return res.status(modelRes.status ? 200 : 213).json(modelRes);
                 }
             } else {
                 console.log("chưa có otp")
-                /* chưa có otp */
                 if (modelRes.status && modelRes.data != null) {
                     console.log("chưa có 222", modelRes.data)
                     if (modelRes.data?.length > 0) {
                         let otpObj = otps.createOtp(String(req.body.guestEmail), 5);
                         if (otpObj) {
-                            /* gửi otp tới cho khách */
                             let mailSent = await mail.sendMail({
                                 subject: "Gửi OTP",
                                 to: `${String(req.body.guestEmail)}`,
@@ -59,5 +56,28 @@ export default {
                 message: "Lỗi controller"
             })
         }
-    }
+    },
+    findManyGuestReceipts: async function (req: Request, res: Response) {
+        try {
+            
+            let maxItemPage = Number(req.query.maxItemPage);
+            let skipItem = Number(req.query.skipItem);
+            let modelRes = await purchaseModel.findManyGuestReceipts(maxItemPage, skipItem);
+            return res.status(modelRes.status ? 200 : 213).json(modelRes);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Lỗi controller"
+            })
+        }
+    },
+    findById: async function (req: Request, res: Response) {
+        try {
+            let modelRes = await purchaseModel.findById(req.params.orderId);
+            return res.status(modelRes.status ? 200 : 213).json(modelRes);
+        } catch (err) {
+            return res.status(500).json({
+                message: "Lỗi controller"
+            })
+        }
+    },
 }
