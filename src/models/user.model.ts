@@ -113,6 +113,17 @@ export default {
             let user = await prisma.users.findUnique({
                 where: {
                     id: userId
+                },
+                include: {
+                    userReceipts: {
+                        include: {
+                            userReceiptDetail: {
+                                include: {
+                                    product: true
+                                }
+                            }
+                        }
+                    }
                 }
 
             })
@@ -157,7 +168,7 @@ export default {
     findMany: async function () {
         try {
             let user = await prisma.users.findMany();
-            
+
             return {
                 status: true,
                 message: "Get categories ok!",
